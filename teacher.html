@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
 <meta name="theme-color" content="#A51C30">
 <script>window.PLAN_SYNC={"url": "https://pijljjeypqnbypjzfewn.supabase.co", "key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBpamxqamV5cHFuYnlwanpmZXduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0NTA2NzcsImV4cCI6MjEwNDAyNjY3N30.aEeOZHWf3sad4Xa_juNjHGQ4LeXX55aCUMql7ENvYk8", "table": "edx_progress", "prefix": "edx_"};</script>
-<script src="config.js?v=20260910015749"></script>
+<script src="config.js?v=20260910020940"></script>
 <style>
 :root{--crimson:#A51C30;--crimson-d:#6F1220;--crimson-l:#C8455A;--bg:#f7f5f5;--card:#fff;--ink:#1e232a;--muted:#6e7681;--line:#e6e2e2;
   --hi:#fdf3f4;--green:#1E7A34;--green-l:#e6f4ea;--amber:#b7791f;--amber-l:#fff6e5;--sat:#f3e9eb;--radius:12px;
@@ -1024,7 +1024,7 @@ const SYL=({
   ]
  }
 })||{};
-const BUILD='20260910015749';
+const BUILD='20260910020940';
 const SY=window.PLAN_SYNC||{};
 const MOCK=new URLSearchParams(location.search).get('mock');
 const PAPERS=Object.keys(PLAN.papers),SETCODES=PLAN.setOrder;
@@ -1141,16 +1141,15 @@ function renderProgress(){const rows=rowsSorted();
   const showK=!klass&&classes().length>1;
   const online=u=>{const x=S[u];const ss=Object.values(x.subs);const g=ss.filter(o=>o.tt);const avg=g.length?Math.round(g.reduce((a,o)=>a+o.sc/o.tt,0)/g.length*100):null;
     return ss.length?`${ss.length} 套${avg!=null?` · 均分 ${avg}%`:''}<div class="sub">提交 ${x.na} 题 · Lv.${Math.floor(Math.sqrt(x.xp/40))+1}</div>`:`<span class="sub">${x.na?`提交 ${x.na} 题`:'—'}</span>`;};
-  let h=`<div class="card"><div class="tablewrap"><table><tr><th class="sort" data-k="name">学生</th>${Object.keys(PLAN.papers).map(p=>`<th class="sort" data-k="${p}">${PLAN.papers[p].label} 已清零</th>`).join('')}<th>Paper 4</th><th>在线做题</th><th class="sort" data-k="wrong">错题</th><th class="sort" data-k="last">最近动静</th></tr>`;
+  let h=`<div class="card"><div class="tablewrap"><table><tr><th class="sort" data-k="name">学生</th>${Object.keys(PLAN.papers).map(p=>`<th class="sort" data-k="${p}">${PLAN.papers[p].label} 已清零</th>`).join('')}<th>在线做题</th><th class="sort" data-k="wrong">错题</th><th class="sort" data-k="last">最近动静</th></tr>`;
   for(const r of rows){const T=PLAN.types[r.type];
-    h+=`<tr><td><span class="name" data-det="${r.u}">${esc(r.n)}</span><div class="sub">${esc(r.u)}${showK&&r.klass?` · ${esc(r.klass)} 班`:''}</div></td>${Object.keys(PLAN.papers).map(p=>`<td>${bar(r.st[p])}</td>`).join('')}<td class="sub">${r.p4.done}/${r.p4.req}</td>
-      <td style="font-size:13px">${online(r.u)}</td><td>${r.nw}${r.nm?`<span class="sub"> · 掌握 ${r.nm}</span>`:''}</td><td class="sub" title="${r.last?new Date(r.last).toLocaleString('zh-CN'):''}">${ago(r.last)}<div>登录 ${ago(r.seen)}</div></td></tr>`;
-    h+=`<tr class="det" data-detrow="${r.u}" ${openDet.has(r.u)?'':'hidden'}><td colspan="7">${detail(r.u)}</td></tr>`;}
+    h+=`<tr><td><span class="name" data-det="${r.u}">${esc(r.n)}</span><div class="sub">${esc(r.u)}${showK&&r.klass?` · ${esc(r.klass)} 班`:''}</div></td>${Object.keys(PLAN.papers).map(p=>`<td>${bar(r.st[p])}</td>`).join('')}      <td style="font-size:13px">${online(r.u)}</td><td>${r.nw}${r.nm?`<span class="sub"> · 掌握 ${r.nm}</span>`:''}</td><td class="sub" title="${r.last?new Date(r.last).toLocaleString('zh-CN'):''}">${ago(r.last)}<div>登录 ${ago(r.seen)}</div></td></tr>`;
+    h+=`<tr class="det" data-detrow="${r.u}" ${openDet.has(r.u)?'':'hidden'}><td colspan="${Object.keys(PLAN.papers).length+4}">${detail(r.u)}</td></tr>`;}
   h+='</table></div><div class="stack">';
   for(const r of rows){const T=PLAN.types[r.type];
     h+=`<div class="pcard"><div class="ph"><span class="name" data-det="${r.u}">${esc(r.n)}</span><span class="sub">${esc(r.u)}</span>${showK&&r.klass?`<span class="ktag">${esc(r.klass)} 班</span>`:''}<span class="grow"></span></div>
       <div class="pr">${Object.keys(PLAN.papers).map(p=>`<span class="sub">${PLAN.papers[p].label}</span>${bar(r.st[p])}`).join('')}</div>
-      <div class="pf"><span>Paper 4 ${r.p4.done}/${r.p4.req}</span><span>错题 ${r.nw}${r.nm?` · 掌握 ${r.nm}`:''}</span><span>在线 ${Object.keys(S[r.u].subs).length} 套 · ${S[r.u].na} 题</span><span>动静 ${ago(r.last)}</span><span class="grow"></span><button class="sm" data-det="${r.u}">${openDet.has(r.u)?'收起':'详情'}</button></div>
+      <div class="pf"><span>错题 ${r.nw}${r.nm?` · 掌握 ${r.nm}`:''}</span><span>在线 ${Object.keys(S[r.u].subs).length} 套 · ${S[r.u].na} 题</span><span>动静 ${ago(r.last)}</span><span class="grow"></span><button class="sm" data-det="${r.u}">${openDet.has(r.u)?'收起':'详情'}</button></div>
       <div class="pdet" data-detrow="${r.u}" ${openDet.has(r.u)?'':'hidden'}>${detail(r.u)}</div></div>`;}
   h+='</div></div>';
   // 全班矩阵
@@ -1291,24 +1290,10 @@ function renderStudents(){const us=vis().sort((a,b)=>(S[a].klass||'').localeComp
   for(const u of us){const x=S[u];
     h+=`<div class="pcard"><div class="ph"><b style="color:var(--crimson)">${esc(x.n)}</b><span class="code" style="font-weight:500">${esc(u)}</span>${x.klass?`<span class="ktag">${esc(x.klass)}</span>`:''}</div>
       <div class="pf"><span>登录 ${ago(x.seen)}</span><span class="grow"></span>${acts(u)}</div></div>`;}
-  h+=`</div>${us.length?'':'<div class="empty">还没有学生，点「添加学生」。</div>'}</div>
-  <div class="card noprint"><h2>导入旧错题本记录</h2><p class="sub" style="margin:0 0 8px">以前学生用旧版错题本「发给老师」的同步码还能用：选学生，粘贴同步码（或整条 <code>姓名: 码</code>），导入后学生端会立刻显示为已标记。</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><select id="impU">${us.map(u=>`<option value="${u}">${esc(S[u].n)}（${u}）</option>`).join('')}</select><input type="text" id="impCode" placeholder="粘贴同步码" style="flex:1;min-width:200px"><button class="primary" id="impOk">导入</button><span class="msg" id="impMsg"></span></div></div>`;
+  h+=`</div>${us.length?'':'<div class="empty">还没有学生，点「添加学生」。</div>'}</div>`;
   $('#dash').innerHTML=h;
   $('#btnAdd').onclick=()=>openStu(null);
-  $('#impOk').onclick=async()=>{const u=$('#impU').value;let code=$('#impCode').value.trim();const m=$('#impMsg');m.className='msg';
-    if(!u||!code){m.className='msg bad';m.textContent='请选学生并粘贴同步码';return;}
-    const mm=code.match(/^(.{1,20}?)[:：,，\s]+(\S+)$/);if(mm)code=mm[2];if(code.includes('#s='))code=code.split('#s=')[1];
-    const [w,ms]=code.split('.');let ids=[],mset=new Set();try{ids=decodeIds(decodeURIComponent(w)).filter(i=>byId.has(i));if(ms)decodeIds(ms).forEach(i=>mset.add(i));}catch(e){}
-    if(!ids.length){m.className='msg bad';m.textContent='同步码无法识别';return;}
-    try{const j=await rpc('teacher_save_wrong',{p_token:session.token,p_user:u,p_items:ids.map(q=>({q,on:true,m:mset.has(q)}))});
-      if(!j.ok)throw new Error(j.error);m.className='msg good';m.textContent=`已导入 ${ids.length} 题`;$('#impCode').value='';pull();}
-    catch(e){m.className='msg bad';m.textContent=errMsg(e);}};}
-/* 旧错题本同步码：每题 2 字节 base64url */
-const PK=Object.keys(PLAN.papers),SK=['m','s','w'];
-function decodeIds(code){const b64=code.trim().replace(/-/g,'+').replace(/_/g,'/');const bin=atob(b64+'==='.slice((b64.length+3)%4));const ids=[];
-  for(let i=0;i+1<bin.length;i+=2){const w=(bin.charCodeAt(i)<<8)|bin.charCodeAt(i+1);const p=PK[(w>>14)&3],s=SK[(w>>12)&3],y=(w>>8)&15,v=((w>>6)&3)+1,q=w&63;if(!p||!s)continue;
-    const yy=String(2016+y-2000).padStart(2,'0');ids.push(`${p}:9702_${s}${yy}_qp_${{p1:'1',p2:'2',p4:'4'}[p]}${v}:${q}`);}return ids;}
+}
 
 /* ---------- 学生对话框 ---------- */
 let editU=null,pwOnlyMode=false;
