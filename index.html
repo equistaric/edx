@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-title" content="ESIC刷物理">
 <meta name="theme-color" content="#A51C30">
 <script>window.PLAN_SYNC={"url": "https://pijljjeypqnbypjzfewn.supabase.co", "key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBpamxqamV5cHFuYnlwanpmZXduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0NTA2NzcsImV4cCI6MjEwNDAyNjY3N30.aEeOZHWf3sad4Xa_juNjHGQ4LeXX55aCUMql7ENvYk8", "table": "edx_progress", "prefix": "edx_"};</script>
-<script src="config.js?v=20260910014257"></script>
+<script src="config.js?v=20260910015536"></script>
 <style>
 :root{--crimson:#A51C30;--crimson-d:#6F1220;--crimson-l:#C8455A;--bg:#f7f5f5;--card:#fff;
   --ink:#1e232a;--muted:#6e7681;--line:#e6e2e2;--hi:#fdf3f4;--green:#1E7A34;--green-l:#e6f4ea;
@@ -1215,7 +1215,7 @@ const SYL=({
   ]
  }
 })||{};
-const BUILD='20260910014257';
+const BUILD='20260910015536';
 const SY=window.PLAN_SYNC||{};
 const MOCK=new URLSearchParams(location.search).get('mock');
 const $=s=>document.querySelector(s);
@@ -1310,7 +1310,7 @@ function migrateLegacy(){
   try{const old=JSON.parse(localStorage.getItem('edxial.plan.v1')||'{}');
     for(const [id,o] of Object.entries(old)){const b=(o.a?4:0)|(o.b?2:0)|(o.c?1:0);
       if(b&&!(practice[id]|0)){practice[id]=b;ptime[id]=Math.max(o.a||0,o.b||0,o.c||0)||Date.now();pending.practice[id]=b;n++;}}}catch(e){}
-  try{const ow=JSON.parse(localStorage.getItem('cie9702.wrongbook.v1')||'[]'),om=new Set(JSON.parse(localStorage.getItem('cie9702.wrongbook.mastered')||'[]'));
+  try{const ow=JSON.parse(localStorage.getItem('edxial.wrongbook.v1')||'[]'),om=new Set(JSON.parse(localStorage.getItem('edxial.wrongbook.mastered')||'[]'));
     for(const q of ow){if(!byId.has(q)||wrong.has(q))continue;wrong.add(q);if(om.has(q))mastered.add(q);wtime[q]=Date.now();pending.wrong[q]={on:true,m:om.has(q)};n++;}}catch(e){}
   localStorage.setItem(mk,'1');return n;
 }
