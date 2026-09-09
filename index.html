@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-title" content="ESIC刷物理">
 <meta name="theme-color" content="#A51C30">
 <script>window.PLAN_SYNC={"url": "https://pijljjeypqnbypjzfewn.supabase.co", "key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBpamxqamV5cHFuYnlwanpmZXduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0NTA2NzcsImV4cCI6MjEwNDAyNjY3N30.aEeOZHWf3sad4Xa_juNjHGQ4LeXX55aCUMql7ENvYk8", "table": "edx_progress", "prefix": "edx_"};</script>
-<script src="config.js?v=20260910015536"></script>
+<script src="config.js?v=20260910015749"></script>
 <style>
 :root{--crimson:#A51C30;--crimson-d:#6F1220;--crimson-l:#C8455A;--bg:#f7f5f5;--card:#fff;
   --ink:#1e232a;--muted:#6e7681;--line:#e6e2e2;--hi:#fdf3f4;--green:#1E7A34;--green-l:#e6f4ea;
@@ -1215,7 +1215,7 @@ const SYL=({
   ]
  }
 })||{};
-const BUILD='20260910015536';
+const BUILD='20260910015749';
 const SY=window.PLAN_SYNC||{};
 const MOCK=new URLSearchParams(location.search).get('mock');
 const $=s=>document.querySelector(s);
@@ -1482,13 +1482,13 @@ document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g
 /* ======================================================================
    刷题：四套题一视同仁；套题页里在线做 + 讲评批注（选择题直接在页面上写）
    ====================================================================== */
-let paper=localStorage.getItem('edx.plan.tab')||Object.keys(PLAN.papers)[0],doSet=null;if(!PLAN.papers[paper])paper=Object.keys(PLAN.papers)[0];
+let paper=localStorage.getItem('edxial.plan.tab')||Object.keys(PLAN.papers)[0],doSet=null;if(!PLAN.papers[paper])paper=Object.keys(PLAN.papers)[0];
 function stats(p){const P=PLAN.papers[p],all=P.sets;const done=all.filter(s=>isDone(s.id)).length;return{req:all.length,done,pct:all.length?Math.round(done/all.length*100):0};}
 function renderTabs(){$('#tabs').innerHTML=PAPERS.map(p=>{const st=stats(p);const L=PLAN.papers[p].label.split(' ');
   return `<button data-p="${p}" aria-pressed="${p===paper}">${L[0]} ${L[1]||''}<br><small style="font-weight:500">${st.pct}%</small></button>`;}).join('');}
 const answered=id=>setItems(id).filter(i=>attempts[i.id]&&(attempts[i.id].a!=null||attempts[i.id].s)).length;
 const submittedN=id=>setItems(id).filter(i=>attempts[i.id]&&attempts[i.id].s).length;
-function openSet(id){if(!setOf(id))return;doSet=id;paper=id.split('-')[0];localStorage.setItem('edx.plan.tab',paper);switchView('plan');renderAll();scrollTo(0,0);}
+function openSet(id){if(!setOf(id))return;doSet=id;paper=id.split('-')[0];localStorage.setItem('edxial.plan.tab',paper);switchView('plan');renderAll();scrollTo(0,0);}
 const stageOf=id=>{const b=bitsOf(id);return b===7?3:(b&6)===6?2:(b&4)?1:0;};
 function renderPlan(){if($('#viewPlan').hidden)return;renderTabs();$('#tabs').hidden=!!doSet;if(doSet){renderSet();return;}
   const P=PLAN.papers[paper],st=stats(paper),td=today(),r=44,C=2*Math.PI*r;
@@ -1509,7 +1509,7 @@ function renderPlan(){if($('#viewPlan').hidden)return;renderTabs();$('#tabs').hi
       html+=`<div class="sc ${cls}" data-go="${s.id}"><b>${PLAN.setLabels[c]}</b><div class="d">${s.n} 题${sb&&sb.tt?` · ${sb.sc}/${sb.tt}`:''}</div><div class="s">${stt}</div></div>`;}
     html+='</div></div>';}
   $('#planWrap').innerHTML=html;}
-document.addEventListener('click',e=>{const t=e.target.closest('.tabs button');if(t){paper=t.dataset.p;localStorage.setItem('edx.plan.tab',paper);doSet=null;renderPlan();}});
+document.addEventListener('click',e=>{const t=e.target.closest('.tabs button');if(t){paper=t.dataset.p;localStorage.setItem('edxial.plan.tab',paper);doSet=null;renderPlan();}});
 function pills(s){return `<div class="pills">${CHECKS.map(c=>`<div class="pill ${has(s.id,c)?'on':''}" data-id="${s.id}" data-c="${c}">${CHECK_LABEL[c]}</div>`).join('')}</div>`;}
 document.addEventListener('click',e=>{const p=e.target.closest('.pill');if(!p)return;
   const id=p.dataset.id,c=p.dataset.c,was=isDone(id);setBits(id,bitsOf(id)^BIT[c]);commit();renderPlan();
@@ -1756,7 +1756,7 @@ async function openWriter(q,opts){opts=opts||{};const it=byId.get(q);if(!it)retu
   if(grades[q])loadGrade(q).then(g=>{if(!g||W.q!==q)return;$('#wInner').insertAdjacentHTML('afterbegin',gradeHtml(g));redrawQ(q);wStatus();});
   if(W.redo){W.old=saved.slice();INKS[q]=[];tip('重做：这次不看上次写的，写完提交再自评一次');}else W.old=[];
   const ob=$('#wTools [data-act=old]');ob.hidden=!W.redo||!W.old.length;
-  if(W.annot){setColor('#dc2626');if(!sessionStorage.getItem('annotTip')){sessionStorage.setItem('annotTip','1');tip('讲评批注：老师讲到哪就在题上写到哪');}}else if(!at.s)setColor(DRAW.color==='#dc2626'?'#1e232a':DRAW.color);
+  if(W.annot){setColor('#dc2626');if(!sessionStorage.getItem('edxial.annotTip')){sessionStorage.setItem('edxial.annotTip','1');tip('讲评批注：老师讲到哪就在题上写到哪');}}else if(!at.s)setColor(DRAW.color==='#dc2626'?'#1e232a':DRAW.color);
   setTool('pen');
   const locked=()=>false;
   document.querySelectorAll('#wInner canvas').forEach(cv=>{bindCanvas(cv,q,+cv.dataset.i,locked,()=>$('#wBody'));const img=cv.previousElementSibling;if(img.tagName!=='IMG'||(img.complete&&img.naturalWidth))fitCanvas(cv);else img.onload=()=>fitCanvas(cv);});
