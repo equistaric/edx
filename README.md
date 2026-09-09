@@ -1,5 +1,11 @@
 # Edexcel IAL Physics 学习系统 — 说明
 
+- **学生端：https://equistaric.github.io/edx/**
+- **教师端：https://equistaric.github.io/edx/teacher.html**
+
+仓库：`equistaric/edx`（与 CIE 的 `equistaric/plan` 完全分开，互不影响）。
+改动后运行 `./deploy.sh "说明"` 即可上线，1–3 分钟生效，网址不变。
+
 刷题 + 自动批改 + 错题本 + 老师批改，一个网站。完全复刻 CIE 学习系统的逻辑，
 但**数据库表、账号、本地缓存全部独立**（`edx_` 前缀），不会影响 CIE 那套的迭代。
 
@@ -59,7 +65,7 @@
 | `config.js` | Supabase URL、anon key、`prefix: "edx_"` |
 | `_private/` | 数据库脚本与账号密码，**不要上传** |
 
-改了内容跑 `./deploy.sh "说明"` 即可（首次需按脚本提示建 GitHub 仓库）。
+改了内容跑 `./deploy.sh "说明"` 即可（仓库 `equistaric/edx` 已建好并开启 GitHub Pages）。
 
 ## 加到手机主屏幕
 
