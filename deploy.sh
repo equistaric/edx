@@ -1,22 +1,19 @@
 #!/bin/bash
-# 一键部署爱德思学习系统：重新生成 index.html / teacher.html → 镜像到 iCloud 之外 → 推送。
-# 用法：双击本文件，或终端 ./deploy.sh "提交说明"
-# 题库有更新（重切了题）时，先跑 _state/build_bank.py 再跑本脚本。
+# 2026-09-16 起爱德思学习系统已并入 CIE 学习系统（equistaric/plan）。本脚本只把跳转页 + 题图（img/ ans/）推到 equistaric/edx，
+# 不再生成页面。页面改动请到 CIE/学习系统/ 跑 deploy.sh（它会同时读这里的 data.json）。
 set -e
 SRC="$(cd "$(dirname "$0")" && pwd)"
-STATE="$(dirname "$SRC")/_state"
-python3 "$STATE/build_site.py" "$SRC"
 DST="$HOME/Sites/edxlearn"
 mkdir -p "$HOME/Sites"
-if [ ! -d "$DST/.git" ]; then
-  echo "首次部署：请先在 GitHub 建一个仓库（例如 equistaric/edx），然后运行："
-  echo "  git clone https://github.com/equistaric/edx.git \"$DST\""
-  exit 1
-fi
+[ -d "$DST/.git" ] || git clone -q https://github.com/equistaric/edx.git "$DST"
 rsync -a --delete --exclude .DS_Store --exclude '._*' --exclude .git --exclude _private "$SRC/" "$DST/"
 cd "$DST"
 git add -A
 if git diff --cached --quiet; then echo "没有改动，无需部署。"; exit 0; fi
 git -c user.email=teacher@equistar -c user.name=Equistar commit -q -m "${1:-更新 $(date '+%Y-%m-%d %H:%M')}"
-git push -q origin main
-echo "已推送。约 1–3 分钟后生效。"
+if [ -n "$GH_TOKEN" ]; then
+  git -c credential.helper='!f(){ echo "username=x-access-token"; echo "password=$GH_TOKEN"; }; f' push -q origin main
+else
+  git push -q origin main
+fi
+echo "已推送 equistaric/edx（跳转页 + 题图）。"
