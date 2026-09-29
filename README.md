@@ -2,11 +2,11 @@
 
 - **现在的网址：学生端 https://equistaric.github.io/plan/ · 教师端 https://equistaric.github.io/plan/teacher.html**
 - 原网址 https://equistaric.github.io/edx/ 只保留题图（`img/`、`ans/`）并自动跳转过去；**账号密码不变**（zzh / 原密码）。
-- 页面代码只有一份（`CIE/专题练习/真题原文件/Topical/_state/learn_*.html`），构建脚本同时读这里的 `data.json`，
-  所以不会再出现两边版本对不上的问题。**改题库仍在这里**：重切题后跑 `../_state/build_bank.py`，再到 `CIE/学习系统/` 跑 `deploy.sh`。
+- 页面代码只有一份（`物理资源claude/学习系统/_源码/learn_*.html`），构建脚本同时读这里的 `data.json`，
+  所以不会再出现两边版本对不上的问题。**改题库仍在这里**：重切题后跑 `../_state/build_bank.py`，再到 `物理资源claude/学习系统/` 跑 `deploy.sh`。
 - 这里的 `deploy.sh` 现在只推送跳转页 + 题图到 `equistaric/edx`（不再生成页面）。
 - 每章题目按年份分成「选择题 2022 / 2023 / 2024 / 2025 / 19–21」和「大题 …」共 10 格（没有题的年份不显示）；
-  原来的进度由 `CIE/学习系统/_private/update4.sql` 迁移到新的年份套题（题目本身的记录一条不少）。
+  原来的进度由 `物理资源claude/学习系统/_private/update4.sql` 迁移到新的年份套题（题目本身的记录一条不少）。
 - `_private/setup_edx.sql` 与 `edx_*` 表保留作历史，不要再跑。
 
 ---

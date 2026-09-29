@@ -1,6 +1,6 @@
 #!/bin/bash
 # 2026-09-16 起爱德思学习系统已并入 CIE 学习系统（equistaric/plan）。本脚本只把跳转页 + 题图（img/ ans/）推到 equistaric/edx，
-# 不再生成页面。页面改动请到 CIE/学习系统/ 跑 deploy.sh（它会同时读这里的 data.json）。
+# 不再生成页面。页面改动请到 物理资源claude/学习系统/ 跑 deploy.sh（它会同时读这里的 data.json）。
 set -e
 SRC="$(cd "$(dirname "$0")" && pwd)"
 DST="$HOME/Sites/edxlearn"
